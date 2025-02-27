@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farid Karimli - Researcher & Developer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', Courier, monospace;
+            background: #000;
+            color: #0f0;
+            overflow-x: hidden;
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .nav a {
+            color: #0f0;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 8px 15px;
+            border: 1px solid #0f0;
+            transition: all 0.3s;
+        }
+        .nav a:hover {
+            background: #0f0;
+            color: #000;
+            transform: scale(1.1);
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        h1 {
+            color: #0f0;
+            text-align: center;
+            border-bottom: 2px solid #0f0;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #0f0;
+            margin-top: 20px;
+        }
+        p, li {
+            line-height: 1.6;
+        }
+        a {
+            color: #0f0;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        img {
+            max-width: 150px;
+            border: 2px solid #0f0;
+            display: block;
+            margin: 20px auto;
+        }
+        .projects {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .project-card {
+            background: rgba(0, 255, 0, 0.1);
+            padding: 15px;
+            border: 1px solid #0f0;
+            width: 200px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .project-card:hover {
+            transform: scale(1.05);
+        }
+        .project-card.active {
+            background: rgba(0, 255, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+    <div class="container">
+        <div class="nav">
+            <a href="#" data-section="home">Home</a>
+            <a href="#" data-section="about">About</a>
+            <a href="#" data-section="projects">Projects</a>
+            <a href="#" data-section="contact">Contact</a>
+        </div>
+
+        <div id="home" class="section active">
+            <h1>Farid Karimli</h1>
+            <img src="https://via.placeholder.com/150" alt="Farid Karimli">
+            <h2>MS Researcher & Developer</h2>
+            <p>Hey, I’m Farid—a researcher and coder messing with images, video, and cool tech. I dig into stuff at Boston University’s Image and Video Research Group and keep things running smooth at Nar (Azerfon). I’m all about building slick, interactive projects that push boundaries. Stick around, check out my work!</p>
+        </div>
+
+        <div id="about" class="section">
+            <h1>About Me</h1>
+            <p>I’m a tech junkie with a knack for research and development. Based in the US, I’ve got 216 connections on LinkedIn and counting. I thrive on solving problems with code and turning ideas into reality—usually with a focus on visuals and interactivity. Let’s just say I like making things that don’t suck.</p>
+            <h2>Experience</h2>
+            <ul>
+                <li>MS Researcher, Boston University - Image and Video Research Group (Current)</li>
+                <li>Developer, Nar (Azerfon) (Current)</li>
+            </ul>
+            <h2>Education</h2>
+            <ul>
+                <li>Boston University - Master’s in [Something Techy, assumed]</li>
+            </ul>
+            <h2>Skills</h2>
+            <ul>
+                <li>Research & Development</li>
+                <li>Coding (Python, JS, whatever gets it done)</li>
+                <li>Image/Video Processing</li>
+                <li>Interactive Design</li>
+            </ul>
+        </div>
+
+        <div id="projects" class="section">
+            <h1>Projects</h1>
+            <div class="projects">
+                <div class="project-card" onclick="this.classList.toggle('active')">
+                    <h2>CameraMouseJS</h2>
+                    <p>An Electron rewrite of CameraMouse—control your cursor with your face. Wild, right?</p>
+                </div>
+                <div class="project-card" onclick="this.classList.toggle('active')">
+                    <h2>AirMouse</h2>
+                    <p>Point and gesture to move your cursor. No hands, just vibes.</p>
+                </div>
+                <div class="project-card" onclick="this.classList.toggle('active')">
+                    <h2>Edubotics-Core</h2>
+                    <p>Core modules for vector storage and retrieval. Techy and practical.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="contact" class="section">
+            <h1>Contact</h1>
+            <p>Email: [Hit me up, assuming farid.karimli@bu.edu]</p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/farid-karimli-437b75204/" target="_blank">Farid Karimli</a></p>
+            <p>GitHub: <a href="https://github.com/Farid-Karimli" target="_blank">Farid-Karimli</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Matrix Effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const chars = '01';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0f0';
+            ctx.font = `${fontSize}px monospace`;
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 50);
+
+        // Navigation
+        const links = document.querySelectorAll('.nav a');
+        const sections = document.querySelectorAll('.section');
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sectionId = link.getAttribute('data-section');
+                sections.forEach(section => {
+                    section.classList.toggle('active', section.id === sectionId);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
